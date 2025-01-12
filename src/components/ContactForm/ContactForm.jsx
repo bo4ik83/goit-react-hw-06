@@ -1,60 +1,44 @@
-import PropTypes from "prop-types";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import styles from "./ContactForm.module.css";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addContact } from "../../redux/contactsSlice";
+import s from "./ContactForm.module.css";
 
-const validationSchema = Yup.object({
-  name: Yup.string()
-    .min(3, "Must be at least 3 characters")
-    .max(50, "Must be 50 characters or less")
-    .required("Name is required"),
-  number: Yup.string()
-    .min(3, "Must be at least 3 characters")
-    .max(50, "Must be 50 characters or less")
-    .required("Number is required"),
-});
+export default function ContactsForm() {
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
+  const dispatch = useDispatch();
+  const contacts = useSelector((state) => state.contacts.items);
 
-const ContactForm = ({ onAddContact }) => {
-  const handleSubmit = (values, { resetForm }) => {
-    onAddContact(values);
-    resetForm();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (contacts.some((contact) => contact.name === name)) {
+      alert(`${name} is already in contacts.`);
+      return;
+    }
+    dispatch(addContact({ id: Date.now(), name, number }));
+    setName("");
+    setNumber("");
   };
 
   return (
-    <Formik
-      initialValues={{ name: "", number: "" }}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-    >
-      {() => (
-        <Form className={styles.form}>
-          <label htmlFor="name" className={styles.label}>
-            Name
-          </label>
-          <Field name="name" type="text" className={styles.input} />
-          <ErrorMessage name="name" component="div" className={styles.error} />
-
-          <label htmlFor="number" className={styles.label}>
-            Number
-          </label>
-          <Field name="number" type="text" className={styles.input} />
-          <ErrorMessage
-            name="number"
-            component="div"
-            className={styles.error}
-          />
-
-          <button type="submit" className={styles.button}>
-            Add Contact
-          </button>
-        </Form>
-      )}
-    </Formik>
+    <form onSubmit={handleSubmit} className={s.form}>
+      <input
+        type="text"
+        placeholder="Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        className={s.input}
+      />
+      <input
+        type="text"
+        placeholder="Number"
+        value={number}
+        onChange={(e) => setNumber(e.target.value)}
+        className={s.input}
+      />
+      <button type="submit" className={s.button}>
+        Add Contact
+      </button>
+    </form>
   );
-};
-
-ContactForm.propTypes = {
-  onAddContact: PropTypes.func.isRequired,
-};
-
-export default ContactForm;
+}
