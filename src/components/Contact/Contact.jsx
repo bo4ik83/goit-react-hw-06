@@ -1,23 +1,29 @@
 import PropTypes from "prop-types";
-import styles from "./Contact.module.css";
+import userIcon from "../../assets/icons/user.svg";
+import phoneIcon from "../../assets/icons/phone.svg";
+import s from "./Contact.module.css";
 
 const Contact = ({ name, number, onDelete }) => (
-  <div className={styles.contactCard}>
-    <div className={styles.info}>
-      <div className={styles.name}>
-        <span className={styles.icon}>
-          <img src="/svg/user.svg" alt="name" width={18} height={18} />
-        </span>{" "}
+  <div className={s.contactCard}>
+    <div className={s.info}>
+      <div className={s.name}>
+        <span className={s.icon}>
+          <img src={userIcon} alt="User icon" width={18} height={18} />
+        </span>
         {name}
       </div>
-      <div className={styles.number}>
-        <span className={styles.icon}>
-          <img src="/svg/phone.svg" alt="number" width={18} height={18} />
-        </span>{" "}
+      <div className={s.number}>
+        <span className={s.icon}>
+          <img src={phoneIcon} alt="Phone icon" width={18} height={18} />
+        </span>
         {number}
       </div>
     </div>
-    <button className={styles.deleteButton} onClick={onDelete}>
+    <button
+      className={s.deleteButton}
+      onClick={() => onDelete(name)}
+      aria-label={`Delete contact ${name}`}
+    >
       Delete
     </button>
   </div>

@@ -31,6 +31,20 @@ const App = () => {
   };
 
   const addContact = ({ name, number }) => {
+    if (!name.trim() || !number.trim()) {
+      alert("Please enter a valid name and number");
+      return;
+    }
+
+    if (
+      contacts.some(
+        (contact) => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
+      alert(`${name} is already in contacts`);
+      return;
+    }
+
     const newContact = {
       id: nanoid(),
       name,
@@ -46,6 +60,11 @@ const App = () => {
     );
   };
 
+  const clearContacts = () => {
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
+    setContacts([]);
+  };
+
   const filteredContacts = contacts.filter((contact) =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
@@ -56,6 +75,7 @@ const App = () => {
       <ContactForm onAddContact={addContact} />
       <SearchBox value={filter} onChange={handleFilterChange} />
       <h2>Contacts</h2>
+      <button onClick={clearContacts}>Clear All Contacts</button>
       <ContactList
         contacts={filteredContacts}
         onDeleteContact={deleteContact}
