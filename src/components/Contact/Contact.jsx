@@ -1,6 +1,4 @@
 import PropTypes from "prop-types";
-import userIcon from "../../assets/icons/user.svg";
-import phoneIcon from "../../assets/icons/phone.svg";
 import s from "./Contact.module.css";
 
 const Contact = ({ name, number, onDelete }) => (
@@ -8,22 +6,18 @@ const Contact = ({ name, number, onDelete }) => (
     <div className={s.info}>
       <div className={s.name}>
         <span className={s.icon}>
-          <img src={userIcon} alt="User icon" width={18} height={18} />
-        </span>
+          <img src="/svg/user.svg" alt="User icon" width={18} height={18} />
+        </span>{" "}
         {name}
       </div>
       <div className={s.number}>
         <span className={s.icon}>
-          <img src={phoneIcon} alt="Phone icon" width={18} height={18} />
-        </span>
+          <img src="/svg/phone.svg" alt="Phone icon" width={18} height={18} />
+        </span>{" "}
         {number}
       </div>
     </div>
-    <button
-      className={s.deleteButton}
-      onClick={() => onDelete(name)}
-      aria-label={`Delete contact ${name}`}
-    >
+    <button className={s.deleteButton} onClick={onDelete}>
       Delete
     </button>
   </div>

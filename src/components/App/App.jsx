@@ -60,11 +60,6 @@ const App = () => {
     );
   };
 
-  const clearContacts = () => {
-    localStorage.removeItem(LOCAL_STORAGE_KEY);
-    setContacts([]);
-  };
-
   const filteredContacts = contacts.filter((contact) =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
@@ -75,7 +70,6 @@ const App = () => {
       <ContactForm onAddContact={addContact} />
       <SearchBox value={filter} onChange={handleFilterChange} />
       <h2>Contacts</h2>
-      <button onClick={clearContacts}>Clear All Contacts</button>
       <ContactList
         contacts={filteredContacts}
         onDeleteContact={deleteContact}
