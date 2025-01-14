@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import debounce from "lodash.debounce";
 import s from "./SearchBox.module.css";
 
-export default function SearchBox() {
+function SearchBox() {
   const dispatch = useDispatch();
   const filter = useSelector((state) => state.filters.name);
 
@@ -36,3 +36,5 @@ export default function SearchBox() {
     </div>
   );
 }
+
+export default SearchBox;

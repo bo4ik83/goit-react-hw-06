@@ -31,20 +31,6 @@ const App = () => {
   };
 
   const addContact = ({ name, number }) => {
-    if (!name.trim() || !number.trim()) {
-      alert("Please enter a valid name and number");
-      return;
-    }
-
-    if (
-      contacts.some(
-        (contact) => contact.name.toLowerCase() === name.toLowerCase()
-      )
-    ) {
-      alert(`${name} is already in contacts`);
-      return;
-    }
-
     const newContact = {
       id: nanoid(),
       name,

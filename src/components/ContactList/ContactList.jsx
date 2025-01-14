@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useMemo } from "react";
-import { deleteContact } from "../../redux/contactsSlice";
+import { deleteContact } from "../../redux/contactsSlice.js";
 import s from "./ContactList.module.css";
 
-export default function ContactList() {
+function ContactList() {
   const contacts = useSelector((state) => state.contacts.items);
   const filter = useSelector((state) => state.filters.name);
   const dispatch = useDispatch();
@@ -43,3 +43,5 @@ export default function ContactList() {
     </ul>
   );
 }
+
+export default ContactList;
