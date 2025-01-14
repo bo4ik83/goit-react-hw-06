@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import { addContact } from "../../redux/contactsSlice";
 import s from "./ContactForm.module.css";
 
-export default function ContactsForm() {
+function ContactsForm() {
   const [formState, setFormState] = useState({ name: "", number: "" });
   const dispatch = useDispatch();
   const contacts = useSelector((state) => state.contacts.items);
@@ -64,3 +64,5 @@ export default function ContactsForm() {
     </form>
   );
 }
+
+export default ContactsForm;
